@@ -1,5 +1,6 @@
 
 import { Scene, Object3D, BoxGeometry, MeshStandardMaterial, Mesh, Texture, TextureLoader, PlaneGeometry, RepeatWrapping } from 'three'
+//@ts-ignore
 import floorPanelUrl from '../res/floorPanel.png'
 
 class World {

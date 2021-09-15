@@ -1,5 +1,6 @@
 
 import { Scene, Object3D, BoxGeometry, MeshStandardMaterial, Mesh, Texture, TextureLoader, PlaneGeometry, RepeatWrapping } from 'three'
+import floorPanelUrl from '../res/floorPanel.png'
 
 class World {
 
@@ -14,7 +15,7 @@ class World {
     constructor(scene : Scene) {
         this.scene = scene;
 
-        this.floorPanel = this.loader.load('res/floorPanel.png');
+        this.floorPanel = this.loader.load(floorPanelUrl);
         this.floorPanel.wrapS = RepeatWrapping;
         this.floorPanel.wrapT = RepeatWrapping;
         this.floorPanel.repeat.set(2.0, 2.0);

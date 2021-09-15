@@ -20,6 +20,8 @@ jobs:
       - name: test folder creation
         run: mkdir test
       - name: commit
-        run: git commit -m "test"
-      - name: push
-        run: git push
+        run: |
+          git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+          git add test
+          git commit -m "test"
+          git push

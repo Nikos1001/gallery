@@ -1,5 +1,5 @@
 
-import { Scene, PerspectiveCamera, WebGLRenderer, DirectionalLight, Raycaster, Vector3, HemisphereLight, RectAreaLight, PointLight, SpotLight, AmbientLight, Object3D } from 'three'
+import { Scene, PerspectiveCamera, WebGLRenderer, DirectionalLight, Raycaster, Vector3, AmbientLight, Object3D } from 'three'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls'
 import { World } from './world'
 import { setupGallery } from './setupGallery';

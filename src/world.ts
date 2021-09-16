@@ -12,6 +12,8 @@ class World {
     loader : TextureLoader = new TextureLoader();
 
     floorPanel : Texture
+    
+    currPaintingIdx : number = 0
 
     constructor(scene : Scene) {
         this.scene = scene;
@@ -35,6 +37,8 @@ class World {
         cube.position.x = x;
         cube.position.y = y;
         cube.position.z = z;
+        cube.castShadow = true;
+        cube.receiveShadow = true;
     }
 
     createFloor(x : number, y : number, z : number) {
@@ -50,6 +54,37 @@ class World {
         floor.position.x = x;
         floor.position.y = y;
         floor.position.z = z;
+        floor.castShadow = true;
+        floor.receiveShadow = true;
+    }
+
+    createPainting(x : number, y : number, z : number, rotation : number, scale : number) {
+        this.currPaintingIdx++;
+        this.loader.load(`https://raw.githubusercontent.com/Nikos1001/gallery/master/paintings/${this.currPaintingIdx - 1}.png`, texture => {
+
+            let width = scale;
+            let height = scale;
+            if(texture.image.width < texture.image.height) {
+                width *= texture.image.width / texture.image.height;
+            } else {
+                height *= texture.image.height / texture.image.width;
+            }
+
+            const geometry = new PlaneGeometry(width, height);
+            const material = new MeshStandardMaterial({
+                map: texture
+            });
+            const painting = new Mesh(geometry, material);
+            this.scene.add(painting);
+            this.objects.push(painting);
+
+            painting.rotateY(rotation);
+            painting.position.x = x;
+            painting.position.y = y;
+            painting.position.z = z;
+            painting.castShadow = true;
+            painting.receiveShadow = true;
+        });
     }
 
 }

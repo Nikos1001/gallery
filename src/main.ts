@@ -1,7 +1,8 @@
 
-import { Scene, PerspectiveCamera, WebGLRenderer, DirectionalLight, AmbientLight, Raycaster, Vector3 } from 'three'
+import { Scene, PerspectiveCamera, WebGLRenderer, DirectionalLight, Raycaster, Vector3, HemisphereLight, RectAreaLight, PointLight, SpotLight, AmbientLight, Object3D } from 'three'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls'
 import { World } from './world'
+import { setupGallery } from './setupGallery';
 
 const scene = new Scene();
 const camera = new PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 1000);
@@ -9,16 +10,31 @@ const camera = new PerspectiveCamera(60, window.innerWidth / window.innerHeight,
 const raycaster = new Raycaster(new Vector3(0, 0, 0,), new Vector3(1, 0, 0), 0, 0.5);
 
 const w = new World(scene);
-w.createWall(0, 0, -3, 3, 1, 1);
-w.createWall(-1, 0, -3.5, 1, 1, 2);
-w.createFloor(0, -0.5, -4);
-w.createFloor(1, -0.5, -4);
+setupGallery(w);
 
-const light = new AmbientLight( 0xe8e8e8 );
-scene.add(light);
-const directionalLight = new DirectionalLight(0xffffff, 0.1);
-directionalLight.position.copy(new Vector3(0.8, 1, 1));
+// const centralWindow = new RectAreaLight(0xE0E0FF, 0.2, 10, 30);
+// centralWindow.position.set(0, 5, 0);
+// centralWindow.lookAt(0, 0, 0);
+// scene.add(centralWindow);
+// centralWindow.castShadow = true;
+
+const ambientLight = new AmbientLight(0xFFFFFF, 0.9);
+scene.add(ambientLight);
+
+const directionalLight = new DirectionalLight(0xFFFFFF, 0.1);
+const target = new Object3D();
+target.position.set(1, 0.5, 0.2);
+scene.add(target);
+directionalLight.target = target;
 scene.add(directionalLight);
+
+const directionalLight2 = new DirectionalLight(0xFFFFFF, 0.1);
+const target2 = new Object3D();
+target2.position.set(-1, 0.5, -0.2);
+scene.add(target2);
+directionalLight2.target = target2;
+scene.add(directionalLight2);
+
 
 const renderer = new WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight);
@@ -26,6 +42,7 @@ document.body.appendChild( renderer.domElement );
 
 const controls = new PointerLockControls(camera, document.body);
 scene.add(controls.getObject());
+
 
 document.body.onclick = function() {
   controls.lock();

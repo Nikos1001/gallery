@@ -11,5 +11,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: test folder creation
         run: mkdir test
-      - uses: cdssnc/auto-commit-github-action
+      - uses: cdssnc/auto-commit-github-action@v2
       

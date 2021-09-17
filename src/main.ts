@@ -84,7 +84,6 @@ let yVel = 0;
 function animate() {
   let dt = performance.now() - prevFrame;
   dt = 1 / dt;
-  console.log(dt);
   prevFrame = performance.now();
 	requestAnimationFrame( animate );
 	renderer.render( scene, camera );

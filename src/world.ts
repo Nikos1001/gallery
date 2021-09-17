@@ -41,8 +41,8 @@ class World {
         cube.receiveShadow = true;
     }
 
-    createFloor(x : number, y : number, z : number) {
-        const geometry = new PlaneGeometry(1, 1);
+    createFloor(x : number, y : number, z : number, w : number, h : number) {
+        const geometry = new PlaneGeometry(w, h);
         const material = new MeshStandardMaterial({
             map: this.floorPanel
         });

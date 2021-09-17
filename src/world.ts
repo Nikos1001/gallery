@@ -10,18 +10,11 @@ class World {
     collisionObjects : Object3D[] = []
 
     loader : TextureLoader = new TextureLoader();
-
-    floorPanel : Texture
     
     currPaintingIdx : number = 0
 
     constructor(scene : Scene) {
         this.scene = scene;
-
-        this.floorPanel = this.loader.load(floorPanelUrl);
-        this.floorPanel.wrapS = RepeatWrapping;
-        this.floorPanel.wrapT = RepeatWrapping;
-        this.floorPanel.repeat.set(2.0, 2.0);
     }
 
     createWall(x : number, y : number, z : number, w : number, h : number, d : number) {
@@ -37,14 +30,19 @@ class World {
         cube.position.x = x;
         cube.position.y = y;
         cube.position.z = z;
-        cube.castShadow = true;
-        cube.receiveShadow = true;
+
+        return cube;
     }
 
     createFloor(x : number, y : number, z : number, w : number, h : number) {
+        const texture = this.loader.load(floorPanelUrl);
+        texture.wrapS = RepeatWrapping;
+        texture.wrapT = RepeatWrapping;
+        texture.repeat.set(2 * w, 2 * h);
+
         const geometry = new PlaneGeometry(w, h);
         const material = new MeshStandardMaterial({
-            map: this.floorPanel
+            map: texture
         });
         const floor = new Mesh(geometry, material);
         this.scene.add(floor);
@@ -54,8 +52,6 @@ class World {
         floor.position.x = x;
         floor.position.y = y;
         floor.position.z = z;
-        floor.castShadow = true;
-        floor.receiveShadow = true;
     }
 
     createPainting(x : number, y : number, z : number, rotation : number, scale : number) {
@@ -82,8 +78,6 @@ class World {
             painting.position.x = x;
             painting.position.y = y;
             painting.position.z = z;
-            painting.castShadow = true;
-            painting.receiveShadow = true;
         });
     }
 

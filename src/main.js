@@ -1,15 +1,15 @@
 
-import { Scene, PerspectiveCamera, WebGLRenderer, DirectionalLight, Raycaster, Vector3, AmbientLight, Object3D } from 'three'
-import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls'
-import { World } from './world'
-import { setupGallery } from './setupGallery';
+import { World } from "./world.js";
+import * as THREE from './three.module.js'
+import { setupGallery } from "./setupGallery.js";
+import { PointerLockControls } from "./PointerLockControls.js"
 
-const scene = new Scene();
-const camera = new PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 1000);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 1000);
 
 camera.position.set(0, 0, 0);
 
-const raycaster = new Raycaster(new Vector3(0, 0, 0,), new Vector3(1, 0, 0), 0, 0.5);
+const raycaster = new THREE.Raycaster(new THREE.Vector3(0, 0, 0,), new THREE.Vector3(1, 0, 0), 0, 0.5);
 
 const w = new World(scene);
 setupGallery(w);
@@ -20,25 +20,25 @@ setupGallery(w);
 // scene.add(centralWindow);
 // centralWindow.castShadow = true;
 
-const ambientLight = new AmbientLight(0xFFFFFF, 0.9);
+const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.9);
 scene.add(ambientLight);
 
-const directionalLight = new DirectionalLight(0xFFFFFF, 0.1);
-const target = new Object3D();
+const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 0.1);
+const target = new THREE.Object3D();
 target.position.set(1, 0.5, 0.2);
 scene.add(target);
 directionalLight.target = target;
 scene.add(directionalLight);
 
-const directionalLight2 = new DirectionalLight(0xFFFFFF, 0.1);
-const target2 = new Object3D();
+const directionalLight2 = new THREE.DirectionalLight(0xFFFFFF, 0.1);
+const target2 = new THREE.Object3D();
 target2.position.set(-1, 0.5, -0.2);
 scene.add(target2);
 directionalLight2.target = target2;
 scene.add(directionalLight2);
 
 
-const renderer = new WebGLRenderer();
+const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -47,7 +47,6 @@ const elevator = w.createWall(0, -0.99, 14, 3.5, 1, 2);
 const controls = new PointerLockControls(camera, document.body);
 scene.add(controls.getObject());
 
-const prevPos = new Vector3();
 
 document.body.onclick = function() {
   controls.lock();
@@ -58,7 +57,7 @@ let elevatorPos = -1;
 let moveFwd = false;
 let moveBwd = false;
 
-document.body.onkeydown = function(ev : KeyboardEvent) {
+document.body.onkeydown = function(ev) {
   if(ev.key == 'w') {
     moveFwd = true;
   }
@@ -67,7 +66,7 @@ document.body.onkeydown = function(ev : KeyboardEvent) {
   }
 }
 
-document.body.onkeyup = function(ev : KeyboardEvent) {
+document.body.onkeyup = function(ev) {
   if(ev.key == 'w') {
     moveFwd = false;
   }
@@ -86,7 +85,7 @@ function animate() {
   dt = 1 / dt;
   prevFrame = performance.now();
 	requestAnimationFrame( animate );
-	renderer.render( scene, camera );
+	renderer.render(scene, camera);
 
   if(moveFwd)
     controls.moveForward(dt / 2);
@@ -140,6 +139,6 @@ function animate() {
     yVel = 0;
   }
 
-  prevPos.copy(camera.position);
+  console.log(dt);
 }
 animate();

@@ -1,4 +1,4 @@
 
 export default {
-    base: '/gallery'
+    // base: '/gallery'
 }

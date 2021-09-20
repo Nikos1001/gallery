@@ -1,6 +1,5 @@
-import { World } from "./world";
 
-async function setupGallery(w : World) {
+async function setupGallery(w) {
     // Create outer walls
     w.createWall(-15.5, 2, 0, 1, 5, 30);
     w.createWall(15.5, 2, 0, 1, 5, 30);
@@ -37,40 +36,40 @@ async function setupGallery(w : World) {
     w.createFloor(-3.125, 2.01, 14, 2.75, 2);
 
     for(let x = -12.5; x <= 12.5; x += 2.5) {
-        await w.createPainting(9.49, 0.4, x, -Math.PI / 2, 1.5);
-        await w.createPainting(-9.49, 0.4, x, Math.PI / 2, 1.5);
+        w.createPainting(9.49, 0.4, x, -Math.PI / 2, 1.5);
+        w.createPainting(-9.49, 0.4, x, Math.PI / 2, 1.5);
     }
     
-    async function firstFloorHallwayPaintings(z : number) {
-        await w.createPainting(4.49, 0.4, z, -Math.PI / 2, 1.5);
-        await w.createPainting(-4.49, 0.4, z, Math.PI / 2, 1.5);
-        await w.createPainting(5.51, 0.4, z, Math.PI / 2, 1.5);
-        await w.createPainting(-5.51, 0.4, z, -Math.PI / 2, 1.5);
+    async function firstFloorHallwayPaintings(z) {
+        w.createPainting(4.49, 0.4, z, -Math.PI / 2, 1.5);
+        w.createPainting(-4.49, 0.4, z, Math.PI / 2, 1.5);
+        w.createPainting(5.51, 0.4, z, Math.PI / 2, 1.5);
+        w.createPainting(-5.51, 0.4, z, -Math.PI / 2, 1.5);
     }
-    async function firstFloorCapPaintings(x : number) {
-        await w.createPainting(x, 0.4, -14.99, 0, 1.5);
-        await w.createPainting(x, 0.4, 14.99, Math.PI, 1.5);
+    async function firstFloorCapPaintings(x) {
+        w.createPainting(x, 0.4, -14.99, 0, 1.5);
+        w.createPainting(x, 0.4, 14.99, Math.PI, 1.5);
     }
 
-    await firstFloorCapPaintings(2.75);
-    await firstFloorCapPaintings(-2.75);
-    await firstFloorCapPaintings(7.5);
-    await firstFloorCapPaintings(-7.5);
+    firstFloorCapPaintings(2.75);
+    firstFloorCapPaintings(-2.75);
+    firstFloorCapPaintings(7.5);
+    firstFloorCapPaintings(-7.5);
 
-    await firstFloorHallwayPaintings(-12.5);
-    await firstFloorHallwayPaintings(-10);
+    firstFloorHallwayPaintings(-12.5);
+    firstFloorHallwayPaintings(-10);
     for(let x = -3; x <= 3; x += 3) {
-        await firstFloorHallwayPaintings(x);
+        firstFloorHallwayPaintings(x);
     }
-    await firstFloorHallwayPaintings(12.5);
-    await firstFloorHallwayPaintings(10);
-    async function secondFloorPaintings(x : number) {
+    firstFloorHallwayPaintings(12.5);
+    firstFloorHallwayPaintings(10);
+    async function secondFloorPaintings(x) {
         w.createPainting(5.49, 3, x, -Math.PI / 2, 1.5);
         w.createPainting(-5.49, 3, x, Math.PI / 2, 1.5);
     }
 
     for(let x = -12.5; x <= 12.5; x += 2.5)
-        await secondFloorPaintings(x);
+        secondFloorPaintings(x);
 
     console.log(w.currPaintingIdx);
 }
